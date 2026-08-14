@@ -1,0 +1,23 @@
+import funkin.play.character.SparrowCharacter;
+import funkin.play.PlayState;
+
+class AbnormalEpicCharacter extends SparrowCharacter
+{
+    final HIT_SHAKE_INTENSITY = 0.009;
+    final HIT_SHAKE_TIME = 0.10;
+    
+    function new() {
+        super("abnormal-epic");
+    }
+
+    function onNoteHit(event:HitNoteScriptEvent)
+    {
+        super.onNoteHit(event);
+
+        if(!event.note.noteData.getMustHitNote()) {
+            var shakeTime:Float = event.note.length > 0 ? (event.note.length / 1000) + HIT_SHAKE_TIME : HIT_SHAKE_TIME;
+            PlayState.instance.camGame.shake(HIT_SHAKE_INTENSITY, shakeTime);
+            PlayState.instance.camHUD.shake(HIT_SHAKE_INTENSITY * 0.6, shakeTime);
+        }
+    }
+}

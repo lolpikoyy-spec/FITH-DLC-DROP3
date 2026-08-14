@@ -1,0 +1,96 @@
+package abnormalmix.characters;
+
+import funkin.play.character.MultiSparrowCharacter;
+import funkin.play.PauseSubState;
+import funkin.play.character.CharacterType;
+import funkin.play.GameOverSubState;
+import funkin.audio.FunkinSound;
+import funkin.play.PlayState;
+import funkin.util.TouchUtil;
+
+class AbnormalPlayableNormalCharacter extends MultiSparrowCharacter {
+	
+	public static var baseCharId:String = 'abnormal-playable-normal';
+
+	function new(id:String) {
+		super(id == 'UNKNOWN' ? baseCharId : id);
+	}
+
+	function onCreate(event:ScriptEvent) {
+		super.onCreate(event);
+		GameOverSubState.musicSuffix = '-abnormal';
+		GameOverSubState.blueBallSuffix = '-abnormal';
+		PauseSubState.musicSuffix = '-abnormal';
+	}
+
+	function onNoteHit(event:HitNoteScriptEvent) {
+		if (event.note.noteData.getMustHitNote() && characterType == CharacterType.BF) {
+			switch (event.note.kind) {
+				case "Cheer":
+					holdTimer = 0;
+					this.playAnimation('cheer', false);
+				case "cheer":
+					holdTimer = 0;
+					this.playAnimation('cheer', false);
+				default:
+					holdTimer = 0;
+					this.playSingAnimation(event.note.noteData.getDirection(), false);
+			}
+		}
+	}
+
+
+    var oldIconChanged:Bool = false;
+
+    public function onUpdate(event:UpdateScriptEvent)
+    {
+        super.onUpdate(event);
+
+        // Replace the old icon if pressed 9.
+        var state:PlayState = PlayState.instance;
+        if (state == null) return;
+
+        var mobileTap:Bool = (FlxG.onMobile && TouchUtil.justPressed && TouchUtil.overlapsComplex(state.iconP1));
+        if ((FlxG.keys.justPressed.NINE || mobileTap) && state.iconP1 != null)
+        {
+            FlxG.signals.postUpdate.addOnce(changeOldIcon);
+        }
+    }
+
+    function changeOldIcon()
+    {
+        var state:PlayState = PlayState.instance;
+        if (state == null) return;
+
+        if (state.iconP1?.characterId == 'bf-old')
+        {
+            if (!oldIconChanged)
+            {
+                oldIconChanged = true;
+                state.iconP1.loadCharacter('abnormal-old');
+            }
+        }
+        else
+        {
+            oldIconChanged = false;
+        }
+    }
+
+	override function onSongRetry(event:ScriptEvent):Void {
+		super.onSongRetry(event);
+		GameOverSubState.musicSuffix = '-abnormal';
+		GameOverSubState.blueBallSuffix = '-abnormal';
+		PauseSubState.musicSuffix = '-abnormal';
+		this.visible = true;
+		oldIconChanged = false;
+	}
+
+	function playAnimation(name:String, restart:Bool = false, ignoreOther:Bool = false, reversed:Bool = false) {
+		super.playAnimation(name, restart, ignoreOther, reversed);
+		if (name == "deathConfirm") {
+			abnormalRetry = FunkinSound.load(Paths.music('gameplay/gameover/gameOverEnd-abnormal'), true);
+			abnormalRetry.volume = 1;
+			abnormalRetry.play(false);
+		}
+	}
+}
