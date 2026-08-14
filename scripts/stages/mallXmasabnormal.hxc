@@ -1,0 +1,108 @@
+import flixel.util.FlxSave;
+import funkin.play.PlayState;
+import funkin.play.stage.Stage;
+import funkin.graphics.shaders.AdjustColorShader;
+import funkin.save.Save;
+
+class MallXmasAbnormalStage extends Stage {
+	function new() {
+		super('mallXmasabnormal');
+		save = new FlxSave();
+		save.bind("SpookyMixOptions", "FunkinCrew");
+	}
+
+	var colorShader:AdjustColorShader;
+	var isMokey:Bool = false;
+
+	function buildStage() {
+		super.buildStage();
+
+		colorShader = new AdjustColorShader();
+
+		if (save.data.spookyShaders != false) {
+			colorShader.brightness = 3;
+			colorShader.contrast = 9;
+			colorShader.saturation = -15;
+			colorShader.hue = -8;
+
+			// Исправлено: проверка на null перед использованием blend
+			var christmasGlow = getNamedProp('christmasGlow');
+			if (christmasGlow != null) {
+				christmasGlow.blend = 0;
+			}
+		}
+
+		if (Save.instance.hasBeatenSong(PlayState.instance.currentSong.id, null, 'spookymod') && FlxG.random.int(1, 50) == 1) {
+			var upperBoppers = getNamedProp('upperBoppers');
+			if (upperBoppers != null) {
+				upperBoppers.frames = Paths.getSparrowAtlas('christmas/spooky/mokey', "week5");
+				upperBoppers.animation.addByPrefix('idle-mokey', 'KRIMAAAAAAAAAAAAA', 12, false);
+				upperBoppers.animation.play('idle-mokey');
+				isMokey = true;
+			}
+		}
+	}
+
+	function onUpdate(event:UpdateScriptEvent):Void {
+		super.onUpdate(event);
+
+		if (PlayState.instance.currentStage.getBoyfriend() != null && PlayState.instance.currentStage.getBoyfriend().shader == null) {
+			PlayState.instance.currentStage.getBoyfriend().shader = colorShader;
+			PlayState.instance.currentStage.getGirlfriend().shader = colorShader;
+			PlayState.instance.currentStage.getDad().shader = colorShader;
+			
+			var santa = getNamedProp('santa');
+			var bottomBoppers = getNamedProp('bottomBoppers');
+			
+			if (santa != null) santa.shader = colorShader;
+			if (bottomBoppers != null) bottomBoppers.shader = colorShader;
+		}
+
+		if (PlayState.instance.currentStage.getBoyfriend() != null
+			&& PlayState.instance.currentVariation == 'spookymod'
+			&& PlayState.instance.currentSong.id == 'eggnog') {
+			
+			PlayState.instance.currentStage.getBoyfriend().danceEvery = 2;
+			PlayState.instance.currentStage.getDad().danceEvery = 2;
+			PlayState.instance.currentStage.getGirlfriend().danceEvery = 2;
+			
+			var bottomBoppers = getNamedProp('bottomBoppers');
+			var upperBoppers = getNamedProp('upperBoppers');
+			var santa = getNamedProp('santa');
+			
+			if (bottomBoppers != null) bottomBoppers.danceEvery = 2;
+			if (upperBoppers != null) upperBoppers.danceEvery = 2;
+			if (santa != null) santa.danceEvery = 2;
+		}
+	}
+
+	override function onGameOver(event:ScriptEvent):Void {
+		super.onGameOver(event);
+		if (PlayState.instance.currentStage.getBoyfriend() != null) {
+			PlayState.instance.currentStage.getBoyfriend().shader = null;
+		}
+	}
+
+	override function onSongRetry(event:ScriptEvent):Void {
+		super.onSongRetry(event);
+		if (PlayState.instance.currentStage.getBoyfriend() != null) {
+			PlayState.instance.currentStage.getBoyfriend().shader = colorShader;
+		}
+	}
+
+	function onBeatHit(event:SongTimeScriptEvent):Void {
+		super.onBeatHit(event);
+		if (isMokey == true) {
+			var upperBoppers = getNamedProp('upperBoppers');
+			if (upperBoppers != null) {
+				upperBoppers.animation.play('idle-mokey');
+			}
+		}
+	}
+
+	function fetchAssetPaths():Array<String> {
+		var results:Array<String> = super.fetchAssetPaths();
+		results.push(Paths.image('christmas/abnormal/mokey', "week5"));
+		return results;
+	}
+}

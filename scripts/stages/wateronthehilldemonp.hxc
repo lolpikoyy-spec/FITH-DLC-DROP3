@@ -1,0 +1,51 @@
+import flixel.FlxG;
+import funkin.play.PlayState;
+import funkin.play.stage.Stage;
+import funkin.play.character.CharacterType;
+import funkin.blake.shaders.RimLightShader;
+
+class WateronthehillDemonPStage extends Stage
+{
+  function new()
+  {
+    super('wateronthehilldemonp');
+  }
+
+  public function onGameOver(event:ScriptEvent)
+  {
+    super.onGameOver(event);
+    getBoyfriend().shader = null;
+  }
+
+  override function addCharacter(character:BaseCharacter, charType:CharacterType):Void
+  {
+    super.addCharacter(character, charType);
+
+    character.color = 0xFFE19D97;
+
+    // dropshadowshader won't work with sprite colors
+    // so we'll use a [relatively more sophisticated] recreation instead
+    var rim = new RimLightShader();
+    rim.color = 0xFF944225;
+    rim.angle = 90;
+    rim.strength = 0.45;
+    character.shader = rim;
+    rim.attachedSprite = character;
+
+    character.animation.onFrameChange.add(function() {
+      if (character != null) rim.updateFrameInfo(character.frame);
+    });
+
+    switch (charType)
+    {
+      case CharacterType.GF:
+        rim.setAdjustColor(-2, -4, -4, -4);
+        rim.strength = rim.strength * 0.5;
+
+      case CharacterType.DAD:
+        rim.angle = 0;
+
+      default:
+    }
+  }
+}
