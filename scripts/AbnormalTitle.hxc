@@ -1,0 +1,146 @@
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.input.touch.FlxTouch;
+import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
+import funkin.Paths;
+import funkin.ui.title.TitleState;
+import funkin.ui.mainmenu.MainMenuState;
+import funkin.modding.module.Module;
+import funkin.modding.events.UpdateScriptEvent;
+import funkin.modding.events.SongTimeScriptEvent;
+import funkin.ui.FullScreenScaleMode;
+import funkin.util.HapticUtil;
+
+class CustomTitle extends Module {
+    public function new() {
+        super('CustomTitle');
+    }
+
+    var state2:Dynamic = null;
+    var addedObjects:Bool = false;
+    var bg:FlxSprite;
+    var logoBl:FlxSprite;
+    var playBttn:FlxSprite;
+    var fadeStrips:Array<FlxSprite> = [];
+    var buttonPressed:Bool = false; 
+    var animPlayedOnTransition:Bool = false; 
+    var speedMultiplier:Float = 0.63; 
+    var logoPosDesktop = { x: -FlxG.width * 0.208, y: -FlxG.height * 0.08 };
+    var logoPosMobile  = { x: -FlxG.width * 0.208, y: -FlxG.height * 0.07 };
+    var playBtnPosDesktop = { x: FlxG.height * 0.960, y: FlxG.height / 1.3 };
+    var playBtnPosMobile  = { x: FlxG.height * 0.960, y: FlxG.height / 1.3 };
+
+    override function onStateChangeEnd(event) {
+        super.onStateChangeEnd(event);
+        state2 = event.targetState;
+        addedObjects = false;
+        buttonPressed = false;
+        animPlayedOnTransition = false;
+        fadeStrips = [];
+    }
+
+    override function onUpdate(event:UpdateScriptEvent) {
+        super.onUpdate(event);
+
+        if (Std.isOfType(state2, TitleState)) {
+            if(state2.textGroup != null)
+            {
+            for (i in 0...state2.textGroup.length)
+            {
+            if(state2.textGroup.members[i].text == 'Funkin Crew Inc')
+            {
+            state2.deleteCoolText();
+            state2.createCoolText(['FIRE IN THE HOLE']);
+            }
+            }
+            }
+            if (state2.skippedIntro && !addedObjects) {
+                addedObjects = true;
+                bg = new FlxSprite();
+                bg.frames = Paths.getSparrowAtlas('title/BG');
+                bg.antialiasing = true;
+                bg.animation.addByPrefix('idle', 'BG', 1, true);
+                bg.animation.play('idle');
+                bg.setGraphicSize(FlxG.width, FlxG.height);
+                bg.updateHitbox();
+                bg.screenCenter();
+                state2.add(bg);
+                bg.shader = state2.swagShader.shader;
+
+                logoBl = new FlxSprite();
+                logoBl.frames = Paths.getSparrowAtlas('title/logoBumpin');
+                logoBl.antialiasing = true;
+                logoBl.animation.addByPrefix('bump', 'logo bumpin0', 24, false);
+                logoBl.animation.play('bump');
+                logoBl.setGraphicSize(Std.int(logoBl.width * 1.0));
+                logoBl.updateHitbox();
+                logoBl.screenCenter();
+                if (FlxG.onMobile) {
+                    logoBl.x += logoPosMobile.x;
+                    logoBl.y += logoPosMobile.y;
+                } else {
+                    logoBl.x += logoPosDesktop.x;
+                    logoBl.y += logoPosDesktop.y;
+                }
+                state2.add(logoBl);
+                logoBl.shader = state2.swagShader.shader;
+
+                if (FlxG.onMobile) {
+                    playBttn = new FlxSprite(playBtnPosMobile.x, playBtnPosMobile.y);
+                } else {
+                    playBttn = new FlxSprite(playBtnPosDesktop.x, playBtnPosDesktop.y);
+                }
+                playBttn.frames = Paths.getSparrowAtlas('title/startText');
+                playBttn.antialiasing = true;
+                playBttn.animation.addByPrefix('idle', 'EnterIdle0', 24, true);
+                playBttn.animation.addByPrefix('pressed', 'EnterStart0', 24, false);
+                playBttn.animation.play('idle', true);
+                playBttn.setGraphicSize(Std.int(playBttn.width / 1.1));
+                playBttn.updateHitbox();
+                state2.add(playBttn);
+                playBttn.shader = state2.swagShader.shader;
+            }
+
+            if(state2.transitioning)
+            {
+		if (playBttn.animation.name != 'pressed')
+		{
+		HapticUtil.vibrate(0, 0.02, 0.5);
+		playBttn.animation.play('pressed', true);
+                        new FlxTimer().start(0.5, function(_) {
+                            var numStrips:Int = 240; 
+                            var stripHeight:Float = FlxG.height / numStrips;
+                            var baseFadeDuration:Float = 0.7;
+                            var baseStripDelay:Float = 0.002;
+                            var fadeDuration:Float = baseFadeDuration * speedMultiplier;
+                            var stripDelay:Float = baseStripDelay * speedMultiplier;
+                            fadeStrips = [];
+                            for (i in 0...numStrips) {
+                                var strip = new FlxSprite(0, i * stripHeight)
+                                    .makeGraphic(FlxG.width, Math.ceil(stripHeight), FlxColor.BLACK);
+                                strip.scrollFactor.set(0, 0);
+                                strip.alpha = 0;
+                                state2.add(strip);
+                                fadeStrips.push(strip);
+                                FlxTween.tween(strip, { alpha: 1 }, fadeDuration, {ease: FlxEase.sineInOut, startDelay: i * stripDelay});
+                            }
+                        });
+		}
+            }
+        }
+    }
+
+    override function onBeatHit(event:SongTimeScriptEvent) {
+        super.onBeatHit(event);
+        if (Std.isOfType(state2, TitleState)) {
+            if (state2.skippedIntro && addedObjects) {
+                if (logoBl != null) {
+                    logoBl.animation.play('bump', true);
+                }
+            }
+        }
+    }
+}
