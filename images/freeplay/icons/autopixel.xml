@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="autopixel.png">
+	<!-- Created using the Spritesheet and XML generator -->
+	<!-- https://uncertainprod.github.io/FNF-Spritesheet-XML-generator-Web -->
+	<SubTexture name="idle0000" x="40" y="0" width="41" height="40" frameX="-4" frameY="-4" frameWidth="48" frameHeight="48"/>
+	<SubTexture name="confirm0000" x="0" y="41" width="41" height="35" frameX="-4" frameY="-9" frameWidth="48" frameHeight="48"/>
+	<SubTexture name="confirm0001" x="81" y="34" width="40" height="30" frameX="-4" frameY="-16" frameWidth="48" frameHeight="48"/>
+	<SubTexture name="confirm0002" x="81" y="0" width="42" height="34" frameX="-3" frameY="-12" frameWidth="48" frameHeight="48"/>
+	<SubTexture name="confirm0003" x="0" y="0" width="40" height="41" frameX="-5" frameY="-3" frameWidth="48" frameHeight="48"/>
+</TextureAtlas>

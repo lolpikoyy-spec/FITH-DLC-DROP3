@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="abnormalpixel.png">
+	<!-- Created using the Spritesheet and XML generator -->
+	<!-- https://uncertainprod.github.io/FNF-Spritesheet-XML-generator-Web -->
+	<SubTexture name="idle0000" x="41" y="0" width="40" height="40" frameX="-4" frameY="-4" frameWidth="48" frameHeight="48"/>
+	<SubTexture name="confirm0000" x="0" y="44" width="40" height="35" frameX="-4" frameY="-9" frameWidth="48" frameHeight="48"/>
+	<SubTexture name="confirm0001" x="81" y="0" width="41" height="30" frameX="-4" frameY="-16" frameWidth="48" frameHeight="48"/>
+	<SubTexture name="confirm0002" x="40" y="44" width="41" height="34" frameX="-4" frameY="-13" frameWidth="48" frameHeight="48"/>
+	<SubTexture name="confirm0003" x="0" y="0" width="41" height="44" frameX="-4" frameY="-3" frameWidth="48" frameHeight="48"/>
+</TextureAtlas>
