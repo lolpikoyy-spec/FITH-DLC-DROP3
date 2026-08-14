@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="assnormal.png">
+	<!-- Created using the Spritesheet and XML generator -->
+	<!-- https://uncertainprod.github.io/FNF-Spritesheet-XML-generator-Web -->
+	<SubTexture name="idle0000" x="389" y="811" width="584" height="160" frameX="-179" frameY="-390" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="idle0001" x="427" y="566" width="549" height="180" frameX="-181" frameY="-365" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="idle0002" x="354" y="1063" width="433" height="205" frameX="-224" frameY="-342" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="idle0003" x="483" y="316" width="364" height="225" frameX="-248" frameY="-321" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="idle0004" x="321" y="1541" width="321" height="245" frameX="-263" frameY="-304" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="idle0005" x="1632" y="0" width="264" height="304" frameX="-284" frameY="-246" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="idle0006" x="321" y="1541" width="321" height="245" frameX="-263" frameY="-304" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="left0000" x="0" y="811" width="389" height="252" frameX="-3" frameY="-303" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="left0001" x="851" y="305" width="366" height="255" frameX="-32" frameY="-300" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="left0002" x="0" y="1063" width="354" height="256" frameX="-66" frameY="-298" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="doen0000" x="718" y="1319" width="417" height="132" frameX="-180" frameY="-436" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="doen0001" x="363" y="1319" width="355" height="177" frameX="-204" frameY="-409" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="doen0002" x="642" y="1541" width="289" height="225" frameX="-238" frameY="-375" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="up0000" x="1471" y="0" width="161" height="504" frameX="-324" frameY="-44" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="up0001" x="1227" y="399" width="206" height="449" frameX="-310" frameY="-99" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="up0002" x="1227" y="0" width="244" height="399" frameX="-296" frameY="-149" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="right0000" x="0" y="265" width="399" height="301" frameX="-359" frameY="-249" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="right0001" x="851" y="0" width="376" height="305" frameX="-351" frameY="-244" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="right0002" x="483" y="0" width="368" height="316" frameX="-329" frameY="-232" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="miss0000" x="0" y="1319" width="363" height="222" frameX="-247" frameY="-328" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="miss0001" x="0" y="1541" width="321" height="245" frameX="-263" frameY="-304" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="hey0000" x="0" y="0" width="483" height="265" frameX="-118" frameY="-289" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="hey0001" x="0" y="566" width="427" height="245" frameX="-162" frameY="-304" frameWidth="768" frameHeight="768"/>
+	<SubTexture name="dead0000" x="787" y="1063" width="438" height="195" frameX="-221" frameY="-393" frameWidth="768" frameHeight="768"/>
+</TextureAtlas>

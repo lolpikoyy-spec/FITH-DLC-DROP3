@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="renders.png">
+<SubTexture name="renders Normal0000" x="1498" y="0" width="670" height="528" frameX="-209" frameY="-33" frameWidth="899" frameHeight="600" />
+<SubTexture name="renders Easy0000" x="708" y="0" width="790" height="601" frameX="-27" frameY="-15" frameWidth="899" frameHeight="652" />
+<SubTexture name="renders Harder0000" x="0" y="0" width="708" height="650" frameX="-130" frameY="-29" frameWidth="899" frameHeight="700" />
+<SubTexture name="renders Insane0000" x="0" y="1236" width="809" height="525" frameX="-62" frameY="-37" frameWidth="899" frameHeight="600" />
+<SubTexture name="renders Auto0000" x="809" y="1236" width="761" height="515" frameX="0" frameY="0" frameWidth="761" frameHeight="515" />
+<SubTexture name="renders Hard_0000" x="496" y="650" width="851" height="538" frameX="-8" frameY="-50" frameWidth="899" frameHeight="600" />
+<SubTexture name="renders NA0000" x="0" y="650" width="496" height="586" frameX="-216" frameY="-6" frameWidth="899" frameHeight="600" />
+</TextureAtlas>
