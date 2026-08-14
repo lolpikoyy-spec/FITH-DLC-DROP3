@@ -1,0 +1,37 @@
+{
+  "title": "FITH DLC DROP3",
+  "description": "Fire In The Hole",
+  "contributors": [
+    {
+      "name": "Cooldudecrafter",
+	  "role": "Artist, Animator, Coder, Charter"
+    },
+    {
+      "name": "gamerzone2",
+	  "role": "Remixed Tutorial, Madness, Eggnog, Winter Horrorland, Guns, Darnell, Lit Up, 2hot"
+    },
+    {
+      "name": "Yearo_isstillalive",
+	  "role": "Remixed Eggnog"
+    },
+    {
+      "name": "TricklorClown",
+	  "role": "Remixed Winter Horrorland, Darnel"
+    },
+    {
+      "name": "LeNinethGames",
+	  "role": "Remixed 2hot"
+    },
+    {
+      "name": "BlueBerry76",
+	  "role": "Remixed Lit Up"
+    },
+    {
+      "name": "Rozebud",
+	  "role": "Composed Original Madness"
+    }
+  ],
+  "api_version": "0.8.1",
+  "mod_version": "0.1.5",
+  "license": "Apache-2.0"
+}
